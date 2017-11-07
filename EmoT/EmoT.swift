@@ -40,7 +40,7 @@ enum Emoticon: Int {
 		case .sushi:
 			return "🍣"
 		case .vsign:
-			return "💪"
+			return "✌"
 		case .fire:
 			return "🔥"
 		}
@@ -67,6 +67,7 @@ class EmoTManager : NSObject {
 	var emot = NSMutableSet()
 	
 	var connectedHandler : ((_ emot : EmoT) -> Void)?
+	var disconnectedHandler : ((_ emot : EmoT) -> Void)?
 	
 	override init() {
 		super.init()
@@ -102,7 +103,6 @@ extension EmoTManager : CBCentralManagerDelegate {
 	func centralManagerDidUpdateState(_ central: CBCentralManager) {}
 	
 	func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-		print("did connect : \(peripheral.description)")
 		peripheral.delegate = self
 		peripheral.discoverServices(nil)
 		
@@ -110,6 +110,17 @@ extension EmoTManager : CBCentralManagerDelegate {
 			for e in self.emot.allObjects as! [EmoT] {
 				if let p = e.peripheral, p == peripheral {
 					c(e);
+					break
+				}
+			}
+		}
+	}
+	
+	func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+		if let f = self.disconnectedHandler {
+			for e in self.emot.allObjects as! [EmoT] {
+				if let p = e.peripheral, p == peripheral {
+					f(e);
 					break
 				}
 			}
@@ -128,10 +139,8 @@ extension EmoTManager : CBCentralManagerDelegate {
 
 extension EmoTManager : CBPeripheralDelegate {
 	func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-		print("did discover services: \(peripheral.name ?? "none")")
 		if let s = peripheral.services {
 			for ss in s {
-				print("service: \(ss)")
 				peripheral.discoverCharacteristics(nil, for: ss)
 			}
 		}

@@ -21,14 +21,30 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 	
 	@IBOutlet var emojiPalette: UICollectionView!
 	
+	@IBOutlet var blinkImageView: UIImageView!
+	@IBOutlet var headMotionImageView: UIImageView!
+	
 	var emot : EmoT?
 	var hud : JGProgressHUD?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		var blinkImages: [UIImage] = []
+		for i in 0...15 {
+			let imageName = "blink_" + String(format: "%05d", i)
+			let image = UIImage(named: imageName)
+			blinkImages.append(image!)
+		}
+		self.blinkImageView.animationImages = blinkImages
+		
 		MEMELib.sharedInstance().delegate = self
 		EmoTManager.shared.connectedHandler = { (e) in
 			self.emot = e
+			self.updateView()
+		}
+		EmoTManager.shared.disconnectedHandler = { (e) in
+			self.emot = nil
+			self.updateView()
 		}
 	}
 	
@@ -52,9 +68,9 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 		if data.blinkStrength > 0 {
 			let speed = Double(data.blinkSpeed) / 1000.0 //瞬きのスピード
 			print("blink speed:\(speed), strength:\(data.blinkStrength)")
-//			eyeImageView.animationDuration = speed
-//			eyeImageView.animationRepeatCount = 1
-//			eyeImageView.startAnimating()
+			self.blinkImageView.animationDuration = speed
+			self.blinkImageView.animationRepeatCount = 1
+			self.blinkImageView.startAnimating()
 		}
 		
 		//傾き
@@ -62,7 +78,7 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 		let pitch = CGFloat(Double(data.pitch) * .pi / 180.0)
 		let roll = CGFloat(Double(data.roll) * .pi / 180.0)
 		print("yaw:\(yaw), pitch:\(pitch), roll:\(roll)")
-//		bodyImageView.transform = CGAffineTransform(rotationAngle: -angle)
+		self.headMotionImageView.transform = CGAffineTransform(rotationAngle: -roll)
 	}
 	
 	func memeCommand(_ response: MEMEResponse) {
@@ -128,7 +144,7 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 			self.scanEmoTButton.setTitle("Disconnect EmoT", for: .normal)
 		}
 		else {
-			self.emotStatusLabel.text = "Disonnected"
+			self.emotStatusLabel.text = "Disconnected"
 			self.scanEmoTButton.setTitle("Scan EmoT", for: .normal)
 		}
 	}

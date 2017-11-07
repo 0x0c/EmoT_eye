@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		16EDD5059A6CE86CFD33B773 /* Pods_EmoT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED67FC3EDD74FC3D663F02F /* Pods_EmoT.framework */; };
+		E92BB68C1FB21205007E32DD /* MEMELib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92BB68B1FB21205007E32DD /* MEMELib.framework */; };
 		E92EBE451F8F27B500571E50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92EBE441F8F27B500571E50 /* AppDelegate.swift */; };
 		E92EBE471F8F27B500571E50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92EBE461F8F27B500571E50 /* ViewController.swift */; };
 		E92EBE4A1F8F27B500571E50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92EBE481F8F27B500571E50 /* Main.storyboard */; };
@@ -18,19 +19,17 @@
 		E957E8921FB01B2800565574 /* EmoT.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957E8911FB01B2800565574 /* EmoT.swift */; };
 		E957E8941FB030F200565574 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957E8931FB030F200565574 /* EmojiCell.swift */; };
 		E9D863181FAFB2B500B46C98 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D863171FAFB2B400B46C98 /* ScanViewController.swift */; };
-		E9D8631A1FAFB40A00B46C98 /* MEMELib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D863191FAFB40A00B46C98 /* MEMELib.framework */; };
-		E9D8631C1FAFB43400B46C98 /* MEMELib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E9D863191FAFB40A00B46C98 /* MEMELib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E9D8631B1FAFB43100B46C98 /* CopyFiles */ = {
+		E91819FD1FB20C50008E13E1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E9D8631C1FAFB43400B46C98 /* MEMELib.framework in CopyFiles */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -39,6 +38,7 @@
 		2DA014F5B6C6B975C59E63CD /* Pods-EmoT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoT.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoT/Pods-EmoT.release.xcconfig"; sourceTree = "<group>"; };
 		CBF4243AD0BD7D2F47E0DF42 /* Pods-EmoT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoT/Pods-EmoT.debug.xcconfig"; sourceTree = "<group>"; };
 		DED67FC3EDD74FC3D663F02F /* Pods_EmoT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92BB68B1FB21205007E32DD /* MEMELib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MEMELib.framework; path = "../../../MEME/1.1.3 2/framework/universal/MEMELib.framework"; sourceTree = "<group>"; };
 		E92EBE411F8F27B500571E50 /* EmoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92EBE441F8F27B500571E50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E92EBE461F8F27B500571E50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +51,6 @@
 		E957E8911FB01B2800565574 /* EmoT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoT.swift; sourceTree = "<group>"; };
 		E957E8931FB030F200565574 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
 		E9D863171FAFB2B400B46C98 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
-		E9D863191FAFB40A00B46C98 /* MEMELib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MEMELib.framework; path = "../../../MEME/1.1.3 2/framework/universal/MEMELib.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +60,7 @@
 			files = (
 				E92EBE5F1F8F296F00571E50 /* CoreBluetooth.framework in Frameworks */,
 				16EDD5059A6CE86CFD33B773 /* Pods_EmoT.framework in Frameworks */,
-				E9D8631A1FAFB40A00B46C98 /* MEMELib.framework in Frameworks */,
+				E92BB68C1FB21205007E32DD /* MEMELib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +114,7 @@
 		E92EBE5B1F8F295D00571E50 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E9D863191FAFB40A00B46C98 /* MEMELib.framework */,
+				E92BB68B1FB21205007E32DD /* MEMELib.framework */,
 				E92EBE5E1F8F296F00571E50 /* CoreBluetooth.framework */,
 				DED67FC3EDD74FC3D663F02F /* Pods_EmoT.framework */,
 			);
@@ -136,7 +135,7 @@
 				E92EBE3F1F8F27B500571E50 /* Resources */,
 				81C8731809D6B4C4F45CA141 /* [CP] Embed Pods Frameworks */,
 				FE41ECC78B0571337AE93A4B /* [CP] Copy Pods Resources */,
-				E9D8631B1FAFB43100B46C98 /* CopyFiles */,
+				E91819FD1FB20C50008E13E1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
