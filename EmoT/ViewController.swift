@@ -97,6 +97,7 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 	
 	@IBOutlet weak var blinkMode: UISwitch!
 	@IBOutlet weak var headTrackMode: UISwitch!
+	@IBOutlet weak var demoMode: UISwitch!
 	
 	var pipeline: GestureRecognitionPipeline?
 
@@ -144,6 +145,10 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 	}
 	
 	func memeRealTimeModeDataReceived(_ data: MEMERealTimeData!) {
+		if self.demoMode.isOn {
+			return
+		}
+		
 		self.blinkCountLabel.text = String(self.blinkFrequency)
         var batteryLevel : String = ""
         for _ in 0..<data.powerLeft {
