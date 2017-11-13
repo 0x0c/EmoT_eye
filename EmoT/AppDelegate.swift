@@ -8,15 +8,18 @@
 
 import UIKit
 import MEMELib
+import GRTiOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	var pipeline: GestureRecognitionPipeline?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+		self.pipeline = GestureRecognitionPipeline.init(numberOfDimensions: 6)
+
 		MEMELib.setAppClientId(JINSMemeAppId, clientSecret: JINSMemeAppSecret)
 		return true
 	}

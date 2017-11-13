@@ -1,0 +1,6 @@
+framework module GRTiOS {
+  umbrella header "GRTiOS.h"
+
+  export *
+  module * { export * }
+}

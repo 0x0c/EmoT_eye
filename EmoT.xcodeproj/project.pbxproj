@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		16EDD5059A6CE86CFD33B773 /* Pods_EmoT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED67FC3EDD74FC3D663F02F /* Pods_EmoT.framework */; };
-		E92BB68C1FB21205007E32DD /* MEMELib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92BB68B1FB21205007E32DD /* MEMELib.framework */; };
+		E92BB68D1FB216B6007E32DD /* MEMELib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92BB68B1FB21205007E32DD /* MEMELib.framework */; };
+		E92BB68E1FB216B6007E32DD /* MEMELib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E92BB68B1FB21205007E32DD /* MEMELib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E92EBE451F8F27B500571E50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92EBE441F8F27B500571E50 /* AppDelegate.swift */; };
 		E92EBE471F8F27B500571E50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92EBE461F8F27B500571E50 /* ViewController.swift */; };
 		E92EBE4A1F8F27B500571E50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92EBE481F8F27B500571E50 /* Main.storyboard */; };
@@ -16,8 +17,13 @@
 		E92EBE4F1F8F27B500571E50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92EBE4D1F8F27B500571E50 /* LaunchScreen.storyboard */; };
 		E92EBE571F8F28B200571E50 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92EBE561F8F28B200571E50 /* Constant.swift */; };
 		E92EBE5F1F8F296F00571E50 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92EBE5E1F8F296F00571E50 /* CoreBluetooth.framework */; };
+		E9386DD91FB9B384008EF5E8 /* Emoticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9386DD81FB9B384008EF5E8 /* Emoticon.swift */; };
 		E957E8921FB01B2800565574 /* EmoT.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957E8911FB01B2800565574 /* EmoT.swift */; };
 		E957E8941FB030F200565574 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957E8931FB030F200565574 /* EmojiCell.swift */; };
+		E9B896FC1FB967CB00D5DA68 /* GRTiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */; };
+		E9B896FD1FB967CB00D5DA68 /* GRTiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E9B897011FB969DE00D5DA68 /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B897001FB969DE00D5DA68 /* TrainingViewController.swift */; };
+		E9B897031FB96EBF00D5DA68 /* PredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B897021FB96EBF00D5DA68 /* PredictionViewController.swift */; };
 		E9D863181FAFB2B500B46C98 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D863171FAFB2B400B46C98 /* ScanViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +34,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E9B896FD1FB967CB00D5DA68 /* GRTiOS.framework in Embed Frameworks */,
+				E92BB68E1FB216B6007E32DD /* MEMELib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,8 +56,12 @@
 		E92EBE501F8F27B500571E50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E92EBE561F8F28B200571E50 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		E92EBE5E1F8F296F00571E50 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		E9386DD81FB9B384008EF5E8 /* Emoticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoticon.swift; sourceTree = "<group>"; };
 		E957E8911FB01B2800565574 /* EmoT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoT.swift; sourceTree = "<group>"; };
 		E957E8931FB030F200565574 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
+		E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GRTiOS.framework; sourceTree = "<group>"; };
+		E9B897001FB969DE00D5DA68 /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
+		E9B897021FB96EBF00D5DA68 /* PredictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionViewController.swift; sourceTree = "<group>"; };
 		E9D863171FAFB2B400B46C98 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,9 +70,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B896FC1FB967CB00D5DA68 /* GRTiOS.framework in Frameworks */,
 				E92EBE5F1F8F296F00571E50 /* CoreBluetooth.framework in Frameworks */,
 				16EDD5059A6CE86CFD33B773 /* Pods_EmoT.framework in Frameworks */,
-				E92BB68C1FB21205007E32DD /* MEMELib.framework in Frameworks */,
+				E92BB68D1FB216B6007E32DD /* MEMELib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,8 +114,11 @@
 				E92EBE441F8F27B500571E50 /* AppDelegate.swift */,
 				E92EBE461F8F27B500571E50 /* ViewController.swift */,
 				E957E8911FB01B2800565574 /* EmoT.swift */,
+				E9386DD81FB9B384008EF5E8 /* Emoticon.swift */,
 				E9D863171FAFB2B400B46C98 /* ScanViewController.swift */,
 				E957E8931FB030F200565574 /* EmojiCell.swift */,
+				E9B897001FB969DE00D5DA68 /* TrainingViewController.swift */,
+				E9B897021FB96EBF00D5DA68 /* PredictionViewController.swift */,
 				E92EBE481F8F27B500571E50 /* Main.storyboard */,
 				E92EBE4B1F8F27B500571E50 /* Assets.xcassets */,
 				E92EBE4D1F8F27B500571E50 /* LaunchScreen.storyboard */,
@@ -114,6 +130,7 @@
 		E92EBE5B1F8F295D00571E50 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */,
 				E92BB68B1FB21205007E32DD /* MEMELib.framework */,
 				E92EBE5E1F8F296F00571E50 /* CoreBluetooth.framework */,
 				DED67FC3EDD74FC3D663F02F /* Pods_EmoT.framework */,
@@ -258,8 +275,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E957E8941FB030F200565574 /* EmojiCell.swift in Sources */,
+				E9B897031FB96EBF00D5DA68 /* PredictionViewController.swift in Sources */,
 				E957E8921FB01B2800565574 /* EmoT.swift in Sources */,
 				E92EBE471F8F27B500571E50 /* ViewController.swift in Sources */,
+				E9386DD91FB9B384008EF5E8 /* Emoticon.swift in Sources */,
+				E9B897011FB969DE00D5DA68 /* TrainingViewController.swift in Sources */,
 				E92EBE451F8F27B500571E50 /* AppDelegate.swift in Sources */,
 				E92EBE571F8F28B200571E50 /* Constant.swift in Sources */,
 				E9D863181FAFB2B500B46C98 /* ScanViewController.swift in Sources */,

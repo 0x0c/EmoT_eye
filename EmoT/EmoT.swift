@@ -9,55 +9,6 @@
 import UIKit
 import CoreBluetooth
 
-enum Emoticon: Int {
-	case heart
-	case beer
-	case exclamation
-	case question
-	case pray
-	case arm
-	case tengu
-	case sushi
-	case vsign
-	case fire
-	
-	func toString() -> String {
-		switch self {
-		case .heart:
-			return "❤"
-		case .beer:
-			return "🍺"
-		case .exclamation:
-			return "❗"
-		case .question:
-			return "❓"
-		case .pray:
-			return "🙏"
-		case .arm:
-			return "💪"
-		case .tengu:
-			return "👺"
-		case .sushi:
-			return "🍣"
-		case .vsign:
-			return "✌"
-		case .fire:
-			return "🔥"
-		}
-	}
-	
-	static let allValues = [heart,
-							beer,
-							exclamation,
-							question,
-							pray,
-							arm,
-							tengu,
-							sushi,
-							vsign,
-							fire]
-}
-
 class EmoTManager : NSObject {
 	
 	static let shared = EmoTManager()
@@ -151,8 +102,8 @@ extension EmoTManager : CBPeripheralDelegate {
 
 
 extension EmoTManager {
-	func discover(presentingViewController : UIViewController, completion : @escaping () -> Void) {
-		self.scan { (peripherals) in
+	func discover(duration : TimeInterval, presentingViewController : UIViewController, completion : @escaping () -> Void) {
+		self.scan(duration: duration, completion: { (peripherals) in
 			let actionSheet = UIAlertController(title: "EmoT", message: "Select a peripheral to connect.", preferredStyle: .actionSheet)
 			for p : CBPeripheral in self.peripherals.allObjects as! [CBPeripheral] {
 				let action = UIAlertAction(title: p.name, style: .default, handler: { (_) in
@@ -166,13 +117,37 @@ extension EmoTManager {
 			actionSheet.addAction(cancel)
 			presentingViewController.present(actionSheet, animated: true, completion: nil)
 			completion()
-		}
+		})
 	}
 }
 
 class EmoT: NSObject {
 	var peripheral : CBPeripheral?
 	var manager : EmoTManager?
+	private var emoticonCache : Emoticon = .clear
+	private var timer : Timer!
+	private var _holdStateTimeInterval : TimeInterval = 0
+	var holdStateTimeInterval: TimeInterval {
+		set (t) {
+			_holdStateTimeInterval = t
+			if let t = self.timer, t.isValid {
+				t.invalidate()
+			}
+			self.timer = Timer.scheduledTimer(timeInterval: _holdStateTimeInterval, target: self, selector: #selector(self.resetHoldFlag), userInfo: nil, repeats: false)
+		}
+		get {
+			return _holdStateTimeInterval
+		}
+	}
+	private var holdState = false
+	
+	@objc private func resetTimer() {
+		self.timer = Timer.scheduledTimer(timeInterval: _holdStateTimeInterval, target: self, selector: #selector(self.resetHoldFlag), userInfo: nil, repeats: false)
+	}
+	
+	@objc private func resetHoldFlag() {
+		self.holdState = false
+	}
 	
 	init(peripheral : CBPeripheral, manager : EmoTManager) {
 		super.init()
@@ -181,9 +156,29 @@ class EmoT: NSObject {
 	}
 	
 	func change(emoji : Emoticon) {
+		if holdState == false && emoji != self.emoticonCache {
+			print(emoji.toString())
+			self.emoticonCache = emoji
+			if let p = self.peripheral, let s = self.peripheral?.findService(uuid: CBUUID(string: "0x00FF")), let c = s.findCharacteristic(uuid: CBUUID(string: "0xFF01")) {
+				let bytes: [UInt8] = [
+					UInt8(emoji.rawValue)
+				]
+				let data = Data(bytes: bytes)
+				p.writeValue(data, for: c, type: .withResponse)
+			}
+			
+			if self.holdStateTimeInterval > 0 {
+				self.holdState = true
+				self.resetTimer()
+			}
+		}
+	}
+	
+	func animate(animation : Animation) {
+		print(animation.toString())
 		if let p = self.peripheral, let s = self.peripheral?.findService(uuid: CBUUID(string: "0x00FF")), let c = s.findCharacteristic(uuid: CBUUID(string: "0xFF01")) {
 			let bytes: [UInt8] = [
-				UInt8(emoji.rawValue)
+				UInt8(animation.rawValue + Emoticon.allValues.count + 1)
 			]
 			let data = Data(bytes: bytes)
 			p.writeValue(data, for: c, type: .withResponse)

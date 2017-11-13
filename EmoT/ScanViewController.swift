@@ -17,7 +17,11 @@ class ScanViewController: UITableViewController, MEMELibDelegate {
         super.viewDidLoad()
         MEMELib.sharedInstance().delegate = self
     }
-    
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		MEMELib.sharedInstance().startScanningPeripherals()
+	}
 
     /*
      // MARK: - UITableViewDataSource
@@ -37,7 +41,6 @@ class ScanViewController: UITableViewController, MEMELibDelegate {
         return cell
     }
     
-    
     /*
      // MARK: - UITableViewDelegate
      */
@@ -52,7 +55,6 @@ class ScanViewController: UITableViewController, MEMELibDelegate {
      // MARK: - MEMELibDelegate
      */
     func memePeripheralFound(_ peripheral: CBPeripheral!, withDeviceAddress address: String!) {
-        //新しいperipheralが見つかった場合、テーブルに表示
         if peripherals.contains(peripheral) == false {
             peripherals.append(peripheral)
             tableView.reloadData()
@@ -61,7 +63,15 @@ class ScanViewController: UITableViewController, MEMELibDelegate {
     
     func memePeripheralConnected(_ peripheral: CBPeripheral!) {
         //接続されたら閉じる
-        self.dismiss(animated: true, completion: nil)
+        if MEMELib.sharedInstance().isCalibrated == CALIB_NOT_FINISHED, MEMELib.sharedInstance().isCalibrated == CALIB_BODY_FINISHED, MEMELib.sharedInstance().isCalibrated == CALIB_EYE_FINISHED {
+            let alert = UIAlertController.init(title: "キャリブレーションしてください", message: "JINS MEMEアプリを起動してキャリブレーションを行ってください", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: {
+                self.dismiss(animated: true, completion: nil)
+            })
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 	
 	// MARK: - Button
