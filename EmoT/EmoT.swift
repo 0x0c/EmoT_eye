@@ -141,8 +141,8 @@ class EmoT: NSObject {
 	}
 	private var holdState = false
 	
-	@objc private func resetTimer() {
-		self.timer = Timer.scheduledTimer(timeInterval: _holdStateTimeInterval, target: self, selector: #selector(self.resetHoldFlag), userInfo: nil, repeats: false)
+	@objc private func resetTimer(duration : TimeInterval) {
+		self.timer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(self.resetHoldFlag), userInfo: nil, repeats: false)
 	}
 	
 	@objc private func resetHoldFlag() {
@@ -155,7 +155,28 @@ class EmoT: NSObject {
 		self.manager = manager
 	}
 	
+	func forceChange(emoji : Emoticon) {
+		print("force change : \(emoji.toString())")
+		self.emoticonCache = emoji
+		if let p = self.peripheral, let s = self.peripheral?.findService(uuid: CBUUID(string: "0x00FF")), let c = s.findCharacteristic(uuid: CBUUID(string: "0xFF01")) {
+			let bytes: [UInt8] = [
+				UInt8(emoji.rawValue)
+			]
+			let data = Data(bytes: bytes)
+			p.writeValue(data, for: c, type: .withResponse)
+		}
+		
+		if self.holdStateTimeInterval > 0 {
+			self.holdState = true
+			self.resetTimer(duration: self.holdStateTimeInterval)
+		}
+	}
+	
 	func change(emoji : Emoticon) {
+		self.change(emoji: emoji, duration: 0)
+	}
+	
+	func change(emoji : Emoticon, duration : TimeInterval) {
 		if holdState == false && emoji != self.emoticonCache {
 			print(emoji.toString())
 			self.emoticonCache = emoji
@@ -169,7 +190,11 @@ class EmoT: NSObject {
 			
 			if self.holdStateTimeInterval > 0 {
 				self.holdState = true
-				self.resetTimer()
+				self.resetTimer(duration: self.holdStateTimeInterval)
+			}
+			else {
+				self.holdState = true
+				self.resetTimer(duration: duration)
 			}
 		}
 	}
@@ -178,7 +203,7 @@ class EmoT: NSObject {
 		print(animation.toString())
 		if let p = self.peripheral, let s = self.peripheral?.findService(uuid: CBUUID(string: "0x00FF")), let c = s.findCharacteristic(uuid: CBUUID(string: "0xFF01")) {
 			let bytes: [UInt8] = [
-				UInt8(animation.rawValue + Emoticon.allValues.count + 1)
+				UInt8(animation.rawValue + 128)
 			]
 			let data = Data(bytes: bytes)
 			p.writeValue(data, for: c, type: .withResponse)

@@ -42,7 +42,7 @@ extern "C" {
 }
 
 using namespace m2d;
-EmoT *tee;
+EmoT::Tee *tee;
 
 #define GATTS_TAG "GATTS_DEMO"
 
@@ -133,17 +133,17 @@ void write_event_env(esp_gatt_if_t gatts_if, prepare_type_env_t *prepare_write_e
     esp_gatt_status_t status = ESP_GATT_OK;
 
     uint8_t index = *(uint32_t *)param->write.value;
+
     ESP_LOGI("Receive", "index = %d", index);
-    if (index >= 0 && Emoticon::all.size() + 1 > index) {
-        ESP_LOGI("Receive", "draw");
-        if (index == 16) {
-            tee->clear();
-        }
-        else {
-            tee->draw(Emoticon::all[index]);
-        }
+    // MSBが0なら絵文字、1ならアニメーション
+    if (index == 255) {
+        tee->clear();
     }
-    else if (index - Emoticon::all.size() >= 0) {
+    else if (index >= 0 && 128 > index) {
+        ESP_LOGI("Receive", "draw");
+        tee->draw(Emoticon::all[index]);
+    }
+    else if (index - 128 >= 0) {
         ESP_LOGI("Receive", "animate");
         tee->animate(EmoT::AnimationType::blink);
     }
@@ -263,14 +263,18 @@ static void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_
 
 void app_main()
 {
-    tee = new EmoT(256, (gpio_num_t)CONFIG_EMOT_PIXEL_GPIO);
-    tee->setBrightness(60);
+    tee = new EmoT::Tee(256, (gpio_num_t)CONFIG_EMOT_PIXEL_GPIO);
+    tee->setBrightness(10);
+    tee->clear();
+
 	std::string local_name = CONFIG_EMOT_DEVICE_NAME;
 	raw_scan_rsp_data.push_back(local_name.length() + 1 + 1);
 	raw_scan_rsp_data.push_back(0x09);
 	for(char& c : local_name) {
 		raw_scan_rsp_data.push_back(c);
 	}
+
+    ESP_LOGI("EmoT", "Device name : %s", local_name.c_str());
     
     esp_err_t ret;
     ret = nvs_flash_init();

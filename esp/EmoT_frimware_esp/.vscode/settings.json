@@ -9,6 +9,9 @@
         "string": "cpp",
         "string_view": "cpp",
         "utility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__config": "cpp",
+        "__nullptr": "cpp",
+        "atomic": "cpp"
     }
 }

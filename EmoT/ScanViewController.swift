@@ -8,11 +8,13 @@
 
 import UIKit
 import MEMELib
+import JGProgressHUD
 
 class ScanViewController: UITableViewController, MEMELibDelegate {
 	
     var peripherals: [CBPeripheral] = []
-    
+    var hud : JGProgressHUD?
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         MEMELib.sharedInstance().delegate = self
@@ -46,6 +48,9 @@ class ScanViewController: UITableViewController, MEMELibDelegate {
      */
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //接続処理
+		self.hud = JGProgressHUD(style: .dark)
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		self.hud!.show(in: appDelegate.window!)
         let peripheral = peripherals[indexPath.row]
         MEMELib.sharedInstance().connect(peripheral)
     }
@@ -63,6 +68,9 @@ class ScanViewController: UITableViewController, MEMELibDelegate {
     
     func memePeripheralConnected(_ peripheral: CBPeripheral!) {
         //接続されたら閉じる
+		if let hud = self.hud {
+			hud.dismiss()
+		}
         if MEMELib.sharedInstance().isCalibrated == CALIB_NOT_FINISHED, MEMELib.sharedInstance().isCalibrated == CALIB_BODY_FINISHED, MEMELib.sharedInstance().isCalibrated == CALIB_EYE_FINISHED {
             let alert = UIAlertController.init(title: "キャリブレーションしてください", message: "JINS MEMEアプリを起動してキャリブレーションを行ってください", preferredStyle: .alert)
             self.present(alert, animated: true, completion: {

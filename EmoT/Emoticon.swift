@@ -25,7 +25,7 @@ enum Emoticon: Int {
 	case ng
 	case focus
 	case doubleExclamation
-	case clear
+	case clear = 255
 	
 	func toString() -> String {
 		switch self {
@@ -84,20 +84,5 @@ enum Emoticon: Int {
 		focus,
 		doubleExclamation,
 		clear
-	]
-}
-
-enum Animation : Int {
-	case blink
-	
-	func toString() -> String {
-		switch self {
-		case .blink:
-			return "blink"
-		}
-	}
-	
-	static let allValues = [
-		blink
 	]
 }

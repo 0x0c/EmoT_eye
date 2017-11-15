@@ -20,6 +20,7 @@
 		E9386DD91FB9B384008EF5E8 /* Emoticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9386DD81FB9B384008EF5E8 /* Emoticon.swift */; };
 		E957E8921FB01B2800565574 /* EmoT.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957E8911FB01B2800565574 /* EmoT.swift */; };
 		E957E8941FB030F200565574 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957E8931FB030F200565574 /* EmojiCell.swift */; };
+		E95BB3A91FBC9DA100E51494 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BB3A81FBC9DA100E51494 /* Animation.swift */; };
 		E9B896FC1FB967CB00D5DA68 /* GRTiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */; };
 		E9B896FD1FB967CB00D5DA68 /* GRTiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E9B897011FB969DE00D5DA68 /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B897001FB969DE00D5DA68 /* TrainingViewController.swift */; };
@@ -59,6 +60,7 @@
 		E9386DD81FB9B384008EF5E8 /* Emoticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoticon.swift; sourceTree = "<group>"; };
 		E957E8911FB01B2800565574 /* EmoT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoT.swift; sourceTree = "<group>"; };
 		E957E8931FB030F200565574 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
+		E95BB3A81FBC9DA100E51494 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		E9B896FA1FB967C300D5DA68 /* GRTiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GRTiOS.framework; sourceTree = "<group>"; };
 		E9B897001FB969DE00D5DA68 /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
 		E9B897021FB96EBF00D5DA68 /* PredictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				E92EBE461F8F27B500571E50 /* ViewController.swift */,
 				E957E8911FB01B2800565574 /* EmoT.swift */,
 				E9386DD81FB9B384008EF5E8 /* Emoticon.swift */,
+				E95BB3A81FBC9DA100E51494 /* Animation.swift */,
 				E9D863171FAFB2B400B46C98 /* ScanViewController.swift */,
 				E957E8931FB030F200565574 /* EmojiCell.swift */,
 				E9B897001FB969DE00D5DA68 /* TrainingViewController.swift */,
@@ -282,6 +285,7 @@
 				E9B897011FB969DE00D5DA68 /* TrainingViewController.swift in Sources */,
 				E92EBE451F8F27B500571E50 /* AppDelegate.swift in Sources */,
 				E92EBE571F8F28B200571E50 /* Constant.swift in Sources */,
+				E95BB3A91FBC9DA100E51494 /* Animation.swift in Sources */,
 				E9D863181FAFB2B500B46C98 /* ScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

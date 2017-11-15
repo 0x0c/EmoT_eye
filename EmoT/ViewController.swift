@@ -114,7 +114,7 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 		
 		MEMELib.sharedInstance().delegate = self
 		EmoTManager.shared.connectedHandler = { (e) in
-			e.holdStateTimeInterval = 3
+			e.holdStateTimeInterval = 1.5
 			self.emot = e
 			self.updateView()
 		}
@@ -180,52 +180,6 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 		guard let emot = self.emot else {
 			return
 		}
-		if self.blinkMode.isOn {
-			//瞬き
-			if data.blinkStrength > 0 {
-				let end = Date().timeIntervalSince(self.start)
-				self.blinkTimeBuffer.enqueue(end)
-				self.start = Date()
-				
-				let speed = Double(data.blinkSpeed) / 1000.0 //瞬きのスピード
-				self.blinkImageView.animationDuration = speed
-				self.blinkImageView.animationRepeatCount = 1
-				self.blinkImageView.startAnimating()
-				self.blinkFrequency = self.blinkFrequency + 1
-				self.resetBlinkTimer()
-				// 目の動きについて評価する
-				if (self.blinkFrequency > 15) {
-					if self.eyeMoveFrequencyX > 8 || self.eyeMoveFrequencyY > 8 {
-						// 落ち着きがない
-						emot.change(emoji: .rush) // 💦
-						return
-					}
-					else {
-						// 高速瞬き
-						emot.change(emoji: .doubleExclamation) // ‼️
-						return
-					}
-				}
-				else if (self.blinkFrequency > 4 && self.blinkFrequency < 10) {
-					// 落ち着いている
-					if self.eyeMoveFrequencyX < 6 {
-						// 集中している
-						emot.change(emoji: .focus) // 👁
-						return
-					}
-				}
-				else if (self.eyeMoveFrequencyX > 5 && self.eyeMoveFrequencyY > 5) {
-					// 目をそらした
-					emot.change(emoji: .avert) // 👀
-					return
-				}
-				else {
-					emot.animate(animation: .blink)
-					return
-				}
-			}
-		}
-		
 		if self.headTrackMode.isOn {
 			if roll < -0.5 {
 				// 左右に傾ける→❓
@@ -234,7 +188,7 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 			}
 			if roll > 0.6 {
 				if pitch > 0.4 {
-					if data.accX < -7 {
+					if data.accX < -6 {
 						// 怒り顔→👺
 						emot.change(emoji: .tengu)
 						return
@@ -262,6 +216,54 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 			}
 		}
 		
+		if self.blinkMode.isOn {
+			//瞬き
+			if data.blinkStrength > 0 {
+				let end = Date().timeIntervalSince(self.start)
+				self.blinkTimeBuffer.enqueue(end)
+				self.start = Date()
+				
+				let speed = Double(data.blinkSpeed) / 1000.0 //瞬きのスピード
+				self.blinkImageView.animationDuration = speed
+				self.blinkImageView.animationRepeatCount = 1
+				self.blinkImageView.startAnimating()
+				self.blinkFrequency = self.blinkFrequency + 1
+				self.resetBlinkTimer()
+			}
+
+			// 目の動きについて評価する
+			if (self.blinkFrequency >= 10) {
+				if self.eyeMoveFrequencyX > 8 || self.eyeMoveFrequencyY > 8 {
+					// 落ち着きがない
+					emot.change(emoji: .rush, duration: 5) // 💦
+					return
+				}
+				else {
+					// 高速瞬き
+					emot.change(emoji: .doubleExclamation, duration: 5) // ‼️
+					return
+				}
+			}
+			else if (self.blinkFrequency > 5 && self.blinkFrequency < 10) {
+				// 落ち着いている
+				if self.eyeMoveFrequencyX < 6 {
+					// 集中している
+					emot.change(emoji: .focus, duration: 5) // 👁
+					return
+				}
+			}
+			else if (self.eyeMoveFrequencyX > 4 || self.eyeMoveFrequencyY > 4) {
+				// 目をそらした
+				emot.change(emoji: .avert, duration: 5) // 👀
+					return
+			}
+			else if data.blinkStrength > 0 {
+				emot.animate(animation: .blink)
+				return
+			}
+		}
+		
+		print("not found")
 		// 該当しない場合は消灯
 		emot.change(emoji: .clear)
 	}
@@ -297,7 +299,7 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		if let e = self.emot {
 			if indexPath.section == 0 {
-				e.change(emoji: Emoticon.allValues[indexPath.row])
+				e.forceChange(emoji: Emoticon.allValues[indexPath.row])
 			}
 			else {
 				e.animate(animation: Animation.allValues[indexPath.row])
@@ -307,11 +309,12 @@ class ViewController: UIViewController, MEMELibDelegate, UICollectionViewDataSou
 	
 	// MARK -
 	@IBAction func scan(_ sender: Any) {
-		let hud = JGProgressHUD(style: .dark)
+		self.hud = JGProgressHUD(style: .dark)
 		EmoTManager.shared.discover(duration: 2.0, presentingViewController: self) { [weak hud] in
 			hud?.dismiss()
 		}
-		hud.show(in: self.view)
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
+		self.hud!.show(in: appDelegate.window!)
 	}
 	
 	@IBAction func scanJinsMEME(_ sender: Any) {
